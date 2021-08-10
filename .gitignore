@@ -1,0 +1,3 @@
+/out/*.*
+!/out/.gitkeep
+__debug_bin
