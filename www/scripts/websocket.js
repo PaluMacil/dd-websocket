@@ -12,17 +12,20 @@ export class WS {
 
   send = (data) => {
     this.#connection.send(data);
-  }
+  };
 
   #setHandlers = () => {
     this.#connection.onclose = (e) => {
       console.log('socket was closed', e.reason);
       this.#state.logClose();
       setTimeout(() => {
+        this.#connection = null;
         this.#connection = new WebSocket(this.#address);
         this.#setHandlers();
       }, this.#state.retryTime);
     };
+
+    this.#connection.addEventListener('message', (e) => console.log('Got msg from server: ', e));
   };
 }
 
@@ -39,7 +42,7 @@ class State {
       (t) => Date.now() - t < 5 * 60 * 1000
     );
     this.#closeTimes.push(Date.now());
-  }
+  };
 
   get retryTime() {
     const backoffTime = 600 * this.#closeTimes.length;
