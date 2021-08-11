@@ -19,11 +19,10 @@ export class WS {
       console.log('socket was closed', e.reason);
       this.#state.logClose();
       setTimeout(() => {
-        this.#connection = null;
         this.#connection = new WebSocket(this.#address);
         this.#setHandlers();
       }, this.#state.retryTime);
-    }
+    };
   };
 }
 

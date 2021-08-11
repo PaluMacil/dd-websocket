@@ -12,7 +12,7 @@ class Header {
   constructor(name, lastModified, mimeType) {
     this.name = name;
     this.lastModified = lastModified;
-    this.mimeType = mimeType
+    this.mimeType = mimeType;
   }
 }
 
@@ -61,7 +61,7 @@ const encodeFileWithHeader = (header, fileBuffer) => {
     byteView.set(new Uint8Array(fileBuffer), offset);
     offset += fileBuffer.byteLength;
 
-    return writeBuffer
+    return writeBuffer;
 };
 
 /**
@@ -71,11 +71,11 @@ const encodeFileWithHeader = (header, fileBuffer) => {
 const processFiles = async (files) => {
     for (let file of files) {
       const lastModified = new Date(file.lastModified);
-      const header = new Header(file.name, lastModified, file.type)
+      const header = new Header(file.name, lastModified, file.type);
       const payload = encodeFileWithHeader(header, await file.arrayBuffer());
       console.log('Write Buffer', payload);
       connection.send(payload);
-      console.log("message sent to server")
+      console.log("message sent to server");
     }
 };
 
@@ -90,7 +90,7 @@ const dropHandler = (ev) => {
 const dragOverHandler = (ev) => {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault();
-    dropZone.innerHTML = "<p>let go to upload</p>"
+    dropZone.innerHTML = "<p>let go to upload</p>";
 }
 
 // Another approach besides using the File Drag and drop API would be to use
